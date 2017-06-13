@@ -61,13 +61,13 @@ struct reb_vec3d {
  * @brief Generic 7d pointer, for internal use only (IAS15).
  */
 struct reb_dp7 {
-    double* restrict p0; ///< 0 substep
-    double* restrict p1; ///< 1 substep
-    double* restrict p2; ///< 2 substep
-    double* restrict p3; ///< 3 substep
-    double* restrict p4; ///< 4 substep
-    double* restrict p5; ///< 5 substep
-    double* restrict p6; ///< 6 substep
+    double*  p0; ///< 0 substep
+    double*  p1; ///< 1 substep
+    double*  p2; ///< 2 substep
+    double*  p3; ///< 3 substep
+    double*  p4; ///< 4 substep
+    double*  p5; ///< 5 substep
+    double*  p6; ///< 6 substep
 };
 
 /**
@@ -129,13 +129,13 @@ struct reb_simulation_integrator_ias15 {
 
     int allocatedN;             ///< Size of allocated arrays.
 
-    double* restrict at;            ///< Temporary buffer for acceleration
-    double* restrict x0;            ///<                      position (used for initial values at h=0) 
-    double* restrict v0;            ///<                      velocity
-    double* restrict a0;            ///<                      acceleration
-    double* restrict csx;           ///<                      compensated summation for x
-    double* restrict csv;           ///<                      compensated summation for v
-    double* restrict csa0;          ///<                      compensated summation for a
+    double*  at;            ///< Temporary buffer for acceleration
+    double*  x0;            ///<                      position (used for initial values at h=0) 
+    double*  v0;            ///<                      velocity
+    double*  a0;            ///<                      acceleration
+    double*  csx;           ///<                      compensated summation for x
+    double*  csv;           ///<                      compensated summation for v
+    double*  csa0;          ///<                      compensated summation for a
 
     struct reb_dp7 g;
     struct reb_dp7 b;
@@ -206,7 +206,7 @@ struct reb_simulation_integrator_mercurius {
     double* encounterRhill;
     unsigned int* encounterIndicies;
     struct reb_particle* encounterParticles;
-    struct reb_particle* restrict p_hold;
+    struct reb_particle*  p_hold;
 };
 
 /**
@@ -322,7 +322,7 @@ struct reb_simulation_integrator_whfast {
      * It is automatically filled and updated by WHfast.
      * Access this array with caution.
      */
-    struct reb_particle* restrict p_jh;
+    struct reb_particle*  p_jh;
     
     /**
      * @brief Generate inertial coordinates at the end of the integration, but do not change the Jacobi/heliocentric coordinates
@@ -389,7 +389,7 @@ struct reb_simulation_integrator_janus {
      * @cond PRIVATE
      * Internal data structures below. Nothing to be changed by the user.
      */
-    struct reb_particle_int* restrict p_int;    ///< Integer particle pos/vel
+    struct reb_particle_int*  p_int;    ///< Integer particle pos/vel
     unsigned int allocated_N;                   ///< Space allocated in arrays
     /**
      * @endcond
