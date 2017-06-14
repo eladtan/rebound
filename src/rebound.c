@@ -292,12 +292,12 @@ void reb_free_pointers(struct reb_simulation* const r){
     }
     free(r->messages);
     #ifdef MPI
-    for(int i=0;i<r->particles_send_N;++i)
+    for(int i=0;i<r->mpi_num;++i)
         free(r->particles_send[i]);
     free(r->particles_send);
     free(r->particles_send_N);
     free(r->particles_send_Nmax);
-    for(int i=0;i<r->particles_recv_N;++i)
+    for(int i=0;i<r->mpi_num;++i)
         free(r->particles_recv[i]);
     free(r->particles_recv);
     free(r->particles_recv_N);
