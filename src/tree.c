@@ -316,6 +316,20 @@ void reb_tree_delete(struct reb_simulation* const r){
 		}
 		free(r->tree_root);
 	}
+#ifdef MPI
+	if (r->tree_essential_send!=NULL){
+		for(int i=0;i<r->mpi_num;i++){
+			reb_tree_delete_cell(r->tree_essential_send[i]);
+		}
+		free(r->tree_essential_send);
+	}	
+	if (r->tree_essential_recv!=NULL){
+		for(int i=0;i<r->mpi_num;i++){
+			reb_tree_delete_cell(r->tree_essential_recv[i]);
+		}
+		free(r->tree_essential_recv);
+	}
+#endif
 }
 
 
