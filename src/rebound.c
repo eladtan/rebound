@@ -300,7 +300,6 @@ void reb_free_pointers(struct reb_simulation* const r){
     free(r->particles_recv_Nmax);
     free(r->tree_essential_send_N);
     free(r->tree_essential_send_Nmax);
-    free(r->tree_essential_recv);
     free(r->tree_essential_recv_N);
     free(r->tree_essential_recv_Nmax);
 #endif // MPI
