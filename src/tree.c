@@ -313,27 +313,48 @@ static void reb_tree_delete_cell(struct reb_treecell* node){
 	}
 }
 
-void reb_tree_delete(struct reb_simulation* const r){
-	if (r->tree_root!=NULL){
-		for(int i=0;i<r->root_n;i++){
-			reb_tree_delete_cell(r->tree_root[i]);
-		}
-		free(r->tree_root);
-	}
+void reb_tree_delete(struct reb_simulation* const r)
+{
 #ifdef MPI
-	if (r->tree_essential_send!=NULL){
-		for(int i=0;i<r->mpi_num;i++){
-			reb_tree_delete_cell(r->tree_essential_send[i]);
+	if (r->tree_essential_send!=NULL)
+	{
+		for(int i=0;i<r->mpi_num;i++)
+		{
+			if(r->tree_essential_send[i]!=NULL)
+			{
+				free(r->tree_essential_send[i]);
+				r->tree_essential_send[i]=NULL;
+			}
 		}
 		free(r->tree_essential_send);
+		r->tree_essential_send=NULL;
 	}	
 	if (r->tree_essential_recv!=NULL){
-		for(int i=0;i<r->mpi_num;i++){
-			reb_tree_delete_cell(r->tree_essential_recv[i]);
+		for(int i=0;i<r->mpi_num;i++)
+		{
+			if(r->tree_essential_recv[i]!=NULL)
+			{
+				free(r->tree_essential_recv[i]);
+				r->tree_essential_recv[i]=NULL;
+			}
 		}
 		free(r->tree_essential_recv);
+		r->tree_essential_recv=NULL;
 	}
 #endif
+	if (r->tree_root!=NULL)
+	{
+		for(int i=0;i<r->root_n;i++)
+		{
+			if(r->tree_root[i]!=NULL)
+			{
+				free(r->tree_root[i]);
+				r->tree_root[i]=NULL;
+			}
+		}
+		free(r->tree_root);
+		r->tree_root=NULL;
+	}
 }
 
 
