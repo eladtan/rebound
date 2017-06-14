@@ -301,13 +301,15 @@ void reb_tree_update(struct reb_simulation* const r){
     r->tree_needs_update= 0;
 }
 static void reb_tree_delete_cell(struct reb_treecell* node){
-	if (node==NULL){
+	if (node==NULL)
+	{
 		return;
 	}
-	for (int o=0; o<8; o++) {
+	for (int o=0; o<8; o++) 
+	{
 		reb_tree_delete_cell(node->oct[o]);
+		free(node->oct[o]);
 	}
-	free(node->oct);
 }
 
 void reb_tree_delete(struct reb_simulation* const r){
