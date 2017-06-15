@@ -300,11 +300,10 @@ void reb_tree_update(struct reb_simulation* const r){
 	}
     r->tree_needs_update= 0;
 }
-static void reb_tree_delete_cell(struct reb_treecell* node){
+static void reb_tree_delete_cell(struct reb_treecell* node)
+{
 	if (node==NULL)
-	{
 		return;
-	}
 	for (int o=0; o<8; o++) 
 	{
 		reb_tree_delete_cell(node->oct[o]);
@@ -344,19 +343,18 @@ void reb_tree_delete(struct reb_simulation* const r)
 #endif
 	if (r->tree_root!=NULL)
 	{
-		for(int i=0;i<r->root_n;i++)
+#ifdef MPI
+		if(r->tree_root[r->mpi_id]!=NULL)
 		{
-			if(r->tree_root[i]!=NULL)
-			{
-				free(r->tree_root[i]);
-				r->tree_root[i]=NULL;
-			}
+			reb_tree_delete_cell(r->tree_root[r->mpi_id]);
+			free(r->tree_root[r->mpi_id]);
+			r->tree_root[r->mpi_id]=NULL;
 		}
+#endif
 		free(r->tree_root);
 		r->tree_root=NULL;
 	}
 }
-
 
 
 #ifdef MPI
